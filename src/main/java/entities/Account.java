@@ -53,6 +53,17 @@ public class Account {
     }
 
     public void withdraw(Double amount){
-        balance += amount;
+        validateWithdraw(amount);
+        balance -= amount;
+    }
+
+    public void validateWithdraw(Double amount){
+        if (amount > getWithdrawLimit()){
+            throw new DomainException("Withdraw error: The amount exceeds the withdraw limit.");
+        }
+        if (amount > getBalance()){
+            throw new DomainException("Withdraw error: Insufficient balance.");
+        }
+
     }
 }

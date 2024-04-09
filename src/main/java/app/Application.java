@@ -1,6 +1,7 @@
 package app;
 
 import entities.Account;
+import entities.DomainException;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -24,10 +25,15 @@ public class Application {
 
         System.out.println();
         System.out.print("Enter amount for withdraw: ");
-        double withdraw = sc.nextDouble();
-        account.withdraw(withdraw);
+        double amount = sc.nextDouble();
 
-        System.out.print("New balance: " + account.getBalance());
+        try {
+            account.withdraw(amount);
+            System.out.printf("New balance: %.2f%n", account.getBalance());
+        }
+        catch (DomainException e){
+            System.out.println(e.getMessage());
+        }
 
         sc.close();
     }
